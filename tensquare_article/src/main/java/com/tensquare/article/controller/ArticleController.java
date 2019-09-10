@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,13 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
-	
+
+
+	/**
+	 * 缓存
+	 */
+	@Autowired
+	private RedisTemplate redisTemplate;
 	
 	/**
 	 * 查询全部数据
@@ -47,6 +54,8 @@ public class ArticleController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
+		//先从缓存中查询当前对象
+		redisTemplate.opsForValue();//存取值用opsForValue()
 		return new Result(true,StatusConde.OK,"查询成功",articleService.findById(id));
 	}
 

@@ -6,7 +6,7 @@ spring:
     name: tensquare-baser #指定服务名
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://129.211.17.125:3306/tensquare_base
+    url: jdbc:mysql://192.168.147.128:3306/tensquare_base
     username: root
     password: 123456
   jpa:
